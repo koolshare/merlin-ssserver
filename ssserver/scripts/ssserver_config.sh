@@ -3,5 +3,7 @@
 eval `dbus export ssserver`
 
 if [ "$ssserver_enable" == "1" ];then
-	/koolshare/ssserver/ssserver.sh restart
+	sh /koolshare/ssserver/ssserver.sh restart
+else
+	sh /koolshare/ssserver/ssserver.sh stop
 fi
