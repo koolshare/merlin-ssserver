@@ -57,7 +57,10 @@ EOF
 case $ACTION in
 start)
 	if [ "$ssserver_enable" == "1" ];then
-	start_ssserver
+		logger "[软件中心]: 启动ss-server！"
+		start_ssserver
+	else
+		logger "[软件中心]: ss-server未设置开机启动，跳过！"
 	fi
 	;;
 stop | kill )

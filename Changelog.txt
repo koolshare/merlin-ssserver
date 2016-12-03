@@ -1,5 +1,8 @@
 Koolshare Asuswrt-Merlin ss-server Changelog
 ===========================================
+1.6
+   - fix	fix start up
+
 1.4
    - fix	add ss-server binary
 
