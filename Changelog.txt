@@ -1,5 +1,10 @@
 Koolshare Asuswrt-Merlin ss-server Changelog
 ===========================================
+1.8
+   - fix	fix iptables rule lost
+   - add	add obfs support
+   - update	update ss-server binary
+
 1.6
    - fix	fix start up
 

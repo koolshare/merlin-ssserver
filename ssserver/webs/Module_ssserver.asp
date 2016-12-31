@@ -63,7 +63,7 @@ function conf2obj(){
 	dataType: "script",
 	success: function(xhr) {
     var p = "ssserver";
-        var params = ["method", "password", "port", "udp", "ota", "time"];
+        var params = ["method", "password", "port", "udp", "ota", "time", "obfs"];
         for (var i = 0; i < params.length; i++) {
             $("#ssserver_"+params[i]).val(db_ssserver[p + "_" + params[i]]);
         }
@@ -157,28 +157,6 @@ function show_address(){ //<% nvram_get("ddns_hostname_x"); %></br><% nvram_get(
 												<td colspan="2">ss-server详细设置</td>
 											</tr>
 											</thead>
-											<!--
-											<tr>
-												<th>监听地址</th>
-												<td>
-													<div>
-														<select style="width:164px;margin-left: 2px;" class="input_option" id="ssserver_listen" name="ssserver_listen">
-															<option value="0">ipv4</option>
-															<option value="1">ipv6</option>
-															<option value="2">Both</option>
-														</select>
-													</div>
-												</td>
-											</tr>
-											-->
-											<!--
-											<tr>
-												<th>ss服务器地址</th>
-												<td>
-													<div id="address"><% nvram_get("ddns_hostname_x"); %></br><% nvram_get("wan0_ipaddr"); %></br><% nvram_get("wan1_ipaddr"); %></div>
-												</td>
-											</tr>
-											-->
 											<tr>
 												<th>加密方式</th>
 												<td>
@@ -201,6 +179,7 @@ function show_address(){ //<% nvram_get("ddns_hostname_x"); %></br><% nvram_get(
 															<option class="content_input_fd" value="seed-cfb">seed-cfb</option>
 															<option class="content_input_fd" value="salsa20">salsa20</option>
 															<option class="content_input_fd" value="chacha20">chacha20</option>
+															<option class="content_input_fd" value="chacha20-ietf">chacha20-ietf</option>
 														</select>
 													</div>
 												</td>
@@ -226,7 +205,7 @@ function show_address(){ //<% nvram_get("ddns_hostname_x"); %></br><% nvram_get(
 												<th>超时时间（秒）</th>
 												<td>
 													<div>
-														<input type="txt" name="ssserver_time" id="ssserver_time" class="ssconfig input_ss_table" maxlength="100" value=""/>
+														<input type="txt" name="ssserver_time" id="ssserver_time" class="ssconfig input_ss_table" maxlength="100" value="600"/>
 													</div>
 												</td>
 											</tr>
@@ -248,7 +227,16 @@ function show_address(){ //<% nvram_get("ddns_hostname_x"); %></br><% nvram_get(
 													</select>
 												</td>
 											</tr>
-
+											<tr>
+												<th>混淆（obfs）</th>
+												<td>
+													<select style="width:164px;margin-left: 2px;" class="input_option" id="ssserver_obfs" name="ssserver_obfs">
+														<option value="0" selected>关闭</option>
+														<option value="http">http</option>
+														<option value="tls">tls</option>
+													</select>
+												</td>
+											</tr>
 										</table>
  										<div id="warn" style="display: none;margin-top: 20px;text-align: center;font-size: 20px;margin-bottom: 20px;"class="formfontdesc" id="cmdDesc"><i>开启双线路负载均衡模式才能进行本页面设置，建议负载均衡设置比例1：1</i></div>
 										<div class="apply_gen">
