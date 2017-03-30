@@ -26,14 +26,6 @@ function init() {
 	show_menu();
 	buildswitch();
     conf2obj();
-	var rrt = document.getElementById("switch");
-    if (document.form.ssserver_enable.value != "1") {
-        rrt.checked = false;
-        document.getElementById('ssserver_detail').style.display = "none";
-    } else {
-        rrt.checked = true;
-        document.getElementById('ssserver_detail').style.display = "";
-    }
 }
 function done_validating() {
 refreshpage(5);
@@ -62,11 +54,19 @@ function conf2obj(){
 	url: "dbconf?p=ssserver",
 	dataType: "script",
 	success: function(xhr) {
-    var p = "ssserver";
-        var params = ["method", "password", "port", "udp", "ota", "time", "obfs"];
-        for (var i = 0; i < params.length; i++) {
-            $("#ssserver_"+params[i]).val(db_ssserver[p + "_" + params[i]]);
-        }
+    	var p = "ssserver";
+    	    var params = ["method", "password", "port", "udp", "time", "use_ss"];
+    	    for (var i = 0; i < params.length; i++) {
+    	        $("#ssserver_"+params[i]).val(db_ssserver[p + "_" + params[i]]);
+    	}
+		var rrt = document.getElementById("switch");
+    	if (db_ssserver["ssserver_enable"] != "1") {
+    	    rrt.checked = false;
+    	    document.getElementById('ssserver_detail').style.display = "none";
+    	} else {
+    	    rrt.checked = true;
+    	    document.getElementById('ssserver_detail').style.display = "";
+    	}
 	}
 	});
 }
@@ -77,16 +77,7 @@ function pass_checked(obj){
 function reload_Soft_Center(){
 location.href = "/Main_Soft_center.asp";
 }
-/*
-function show_address(){ //<% nvram_get("ddns_hostname_x"); %></br><% nvram_get("wan0_ipaddr"); %></br><% nvram_get("wan1_ipaddr"); %>
-	var address1 = '<% nvram_get("ddns_hostname_x"); %>';
-	var address2 = '<% nvram_get("wan0_ipaddr"); %>';
-	var address3 = '<% nvram_get("wan1_ipaddr"); %>';
 
-	
-	if (address1 = "")
-}
-*/
 </script>
 </head>
 <body onload="init();">
@@ -123,7 +114,7 @@ function show_address(){ //<% nvram_get("ddns_hostname_x"); %></br><% nvram_get(
 									<td bgcolor="#4D595D" colspan="3" valign="top">
 										<div>&nbsp;</div>
 										<div style="float:left;" class="formfonttitle">SS-SERVER</div>
-										<div style="float:right; width:15px; height:25px;margin-top:10px"><img id="return_btn" onclick="reload_Soft_Center();" align="right" style="cursor:pointer;position:absolute;margin-left:-30px;margin-top:-25px;" title="返回软件中心" src="/images/backprev.png" onMouseOver="this.src='/images/backprevclick.png'" onMouseOut="this.src='/images/backprev.png'"></img></div>
+										<div style="float:right; width:15px; height:25px;margin-top:10px"><img id="return_btn" onclick="reload_Soft_Center();" align="right" style="cursor:pointer;position:absolute;margin-left:-30px;margin-top:-25px;" title="返回软件中心" src="/images/backprev.png" onMouseOver="this.src='/images/backprevclick.png'" onMouseOut="this.src='/images/backprev.png'"></div>
 										<div style="margin-left:5px;margin-top:10px;margin-bottom:10px"><img src="/images/New_ui/export/line_export.png"></div>
 										<div class="formfontdesc" id="cmdDesc">开启ss-server后，就可以类似VPN一样，将你的网络共享到公网，让你和你的小伙伴远程连接。</div>										
 										<div class="formfontdesc" id="cmdDesc"></div>
@@ -147,7 +138,7 @@ function show_address(){ //<% nvram_get("ddns_hostname_x"); %></br><% nvram_get(
 															</div>
 														</label>
 													</div>
-													<div id="qos_enable_hint" style="color:#FC0;vertical-align:middle;display:none">Enabling QoS may take several minutes.<!--#Adaptive_note#--></div>
+													<div id="qos_enable_hint" style="color:#FC0;vertical-align:middle;display:block">binary version: 2.5.6</div>
 												</td>
 											</tr>
                                     	</table>                                    	
@@ -218,15 +209,7 @@ function show_address(){ //<% nvram_get("ddns_hostname_x"); %></br><% nvram_get(
 													</select>
 												</td>
 											</tr>
-											<tr>
-												<th>OTA</th>
-												<td>
-													<select style="width:164px;margin-left: 2px;" class="input_option" id="ssserver_ota" name="ssserver_ota">
-														<option value="0" selected>关闭</option>
-														<option value="1">开启</option>
-													</select>
-												</td>
-											</tr>
+											<!--
 											<tr>
 												<th>混淆（obfs）</th>
 												<td>
@@ -237,8 +220,22 @@ function show_address(){ //<% nvram_get("ddns_hostname_x"); %></br><% nvram_get(
 													</select>
 												</td>
 											</tr>
+											-->
+											<tr>
+												<th>使用ss网络</th>
+												<td>
+													<select style="width:164px;margin-left: 2px;" class="input_option" id="ssserver_use_ss" name="ssserver_use_ss">
+														<option value="0" selected>关闭</option>
+														<option value="1">开启</option>
+													</select>
+													<br/>
+													<span>开启后，连接到ss-server的客户端，将能够访问ss网络，但是ss插件的访问控制会失效。</span>
+													<br/>
+													<span>此功能要求软件中心的SS插件开启，如果没有开启，此功能将不会有效果。</span>
+												</td>
+											</tr>
 										</table>
- 										<div id="warn" style="display: none;margin-top: 20px;text-align: center;font-size: 20px;margin-bottom: 20px;"class="formfontdesc" id="cmdDesc"><i>开启双线路负载均衡模式才能进行本页面设置，建议负载均衡设置比例1：1</i></div>
+ 										<div id="warn" style="display: none;margin-top: 20px;text-align: center;font-size: 20px;margin-bottom: 20px;" class="formfontdesc" id="cmdDesc"><i>开启双线路负载均衡模式才能进行本页面设置，建议负载均衡设置比例1：1</i></div>
 										<div class="apply_gen">
 											<button id="cmdBtn" class="button_gen" onclick="onSubmitCtrl(this, ' Refresh ')">提交</button>
 										</div>
@@ -259,7 +256,6 @@ function show_address(){ //<% nvram_get("ddns_hostname_x"); %></br><% nvram_get(
 		</tr>
 	</table>
 	</form>
-	</td>
 	<div id="footer"></div>
 </body>
 </html>
