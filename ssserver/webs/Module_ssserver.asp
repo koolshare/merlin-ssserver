@@ -138,7 +138,7 @@ location.href = "/Main_Soft_center.asp";
 															</div>
 														</label>
 													</div>
-													<div id="qos_enable_hint" style="color:#FC0;vertical-align:middle;display:block">binary version: 2.5.6</div>
+													<div id="qos_enable_hint" style="color:#FC0;vertical-align:middle;display:block">binary version: 3.0.8</div>
 												</td>
 											</tr>
                                     	</table>                                    	
