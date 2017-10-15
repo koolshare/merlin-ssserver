@@ -153,24 +153,25 @@ location.href = "/Main_Soft_center.asp";
 												<td>
 													<div>
 														<select id="ssserver_method" name="ssserver_method" style="width:164px;margin:0px 0px 0px 2px;" class="input_option" >
-															<option class="content_input_fd" value="table">table</option>
-															<option class="content_input_fd" value="rc4">rc4</option>
-															<option class="content_input_fd" value="rc4-md5">rc4-md5</option>
-															<option class="content_input_fd" value="aes-128-cfb">aes-128-cfb</option>
-															<option class="content_input_fd" value="aes-192-cfb">aes-192-cfb</option>
-															<option class="content_input_fd" value="aes-256-cfb" selected="">aes-256-cfb</option>
-															<option class="content_input_fd" value="bf-cfb">bf-cfb</option>
-															<option class="content_input_fd" value="camellia-128-cfb">camellia-128-cfb</option>
-															<option class="content_input_fd" value="camellia-192-cfb">camellia-192-cfb</option>
-															<option class="content_input_fd" value="camellia-256-cfb">camellia-256-cfb</option>
-															<option class="content_input_fd" value="cast5-cfb">cast5-cfb</option>
-															<option class="content_input_fd" value="des-cfb">des-cfb</option>
-															<option class="content_input_fd" value="idea-cfb">idea-cfb</option>
-															<option class="content_input_fd" value="rc2-cfb">rc2-cfb</option>
-															<option class="content_input_fd" value="seed-cfb">seed-cfb</option>
-															<option class="content_input_fd" value="salsa20">salsa20</option>
-															<option class="content_input_fd" value="chacha20">chacha20</option>
-															<option class="content_input_fd" value="chacha20-ietf">chacha20-ietf</option>
+                                                        <option class="content_input_fd" value="rc4-md5">rc4-md5</option>
+                                                        <option class="content_input_fd" value="aes-128-gcm">aes-128-gcm</option>
+                                                        <option class="content_input_fd" value="aes-192-gcm">aes-192-gcm</option>
+                                                        <option class="content_input_fd" value="aes-256-gcm">aes-256-gcm</option>
+                                                        <option class="content_input_fd" value="aes-128-cfb">aes-128-cfb</option>
+                                                        <option class="content_input_fd" value="aes-192-cfb">aes-192-cfb</option>
+                                                        <option class="content_input_fd" value="aes-256-cfb">aes-256-cfb</option>
+                                                        <option class="content_input_fd" value="aes-128-ctr">aes-128-ctr</option>
+                                                        <option class="content_input_fd" value="aes-192-ctr">aes-192-ctr</option>
+                                                        <option class="content_input_fd" value="aes-256-ctr">aes-256-ctr</option>
+                                                        <option class="content_input_fd" value="camellia-128-cfb">camellia-128-cfb</option>
+                                                        <option class="content_input_fd" value="camellia-192-cfb">camellia-192-cfb</option>
+                                                        <option class="content_input_fd" value="camellia-256-cfb">camellia-256-cfb</option>
+                                                        <option class="content_input_fd" value="bf-cfb">bf-cfb</option>
+                                                        <option class="content_input_fd" value="chacha20-ietf-poly1305">chacha20-ietf-poly1305</option>
+                                                        <option class="content_input_fd" value="xchacha20-ietf-poly1305">xchacha20-ietf-poly1305</option>
+                                                        <option class="content_input_fd" value="salsa20">salsa20</option>
+                                                        <option class="content_input_fd" value="chacha20">chacha20</option>
+                                                        <option class="content_input_fd" value="chacha20-ietf">chacha20-ietf</option>
 														</select>
 													</div>
 												</td>
