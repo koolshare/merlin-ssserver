@@ -12,7 +12,7 @@ eval `dbus export ssserver`
 # kill first
 stop_ssserver(){
 	killall ss-server
-	#killall obfs-server
+	killall obfs-server
 }
 
 # start ssserver
@@ -20,16 +20,16 @@ start_ssserver(){
 mkdir -p /jffs/ss/ssserver
 
 	[ $ssserver_udp -ne 1 ] && ARG_UDP="" || ARG_UDP="-u";
-	# if [ "$ssserver_obfs" == "http" ];then
-	# 	ARG_OBFS="--plugin obfs-server --plugin-opts obfs=http"
-	# elif [ "$ssserver_obfs" == "tls" ];then
-	# 	ARG_OBFS="--plugin obfs-server --plugin-opts obfs=tls"
-	# else
-	# 	ARG_OBFS=""
-	# fi
+	if [ "$ssserver_obfs" == "http" ];then
+		ARG_OBFS="--plugin obfs-server --plugin-opts obfs=http"
+	elif [ "$ssserver_obfs" == "tls" ];then
+		ARG_OBFS="--plugin obfs-server --plugin-opts obfs=tls"
+	else
+		ARG_OBFS=""
+	fi
 
 	#ss-server -c /koolshare/ssserver/ss.json $ARG_UDP $ARG_OBFS -f /tmp/ssserver.pid
-	ss-server -s 0.0.0.0 -p $ssserver_port -k $ssserver_password -m $ssserver_method -t $ssserver_time $ARG_UDP -f /tmp/ssserver.pid
+	ss-server -s 0.0.0.0 -p $ssserver_port -k $ssserver_password -m $ssserver_method -t $ssserver_time $ARG_UDP -f /tmp/ssserver.pid $ARG_OBFS
 }
 
 open_port(){

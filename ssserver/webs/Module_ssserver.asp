@@ -55,7 +55,7 @@ function conf2obj(){
 	dataType: "script",
 	success: function(xhr) {
     	var p = "ssserver";
-    	    var params = ["method", "password", "port", "udp", "time", "use_ss"];
+    	    var params = ["method", "password", "port", "udp", "time", "use_ss", "obfs"];
     	    for (var i = 0; i < params.length; i++) {
     	        $("#ssserver_"+params[i]).val(db_ssserver[p + "_" + params[i]]);
     	}
@@ -210,7 +210,7 @@ location.href = "/Main_Soft_center.asp";
 													</select>
 												</td>
 											</tr>
-											<!--
+											
 											<tr>
 												<th>混淆（obfs）</th>
 												<td>
@@ -221,7 +221,7 @@ location.href = "/Main_Soft_center.asp";
 													</select>
 												</td>
 											</tr>
-											-->
+                                            
 											<tr>
 												<th>使用ss网络</th>
 												<td>
