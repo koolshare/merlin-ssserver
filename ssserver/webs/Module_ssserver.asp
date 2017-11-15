@@ -14,6 +14,7 @@
 <link rel="stylesheet" type="text/css" href="ParentalControl.css">
 <link rel="stylesheet" type="text/css" href="css/icon.css">
 <link rel="stylesheet" type="text/css" href="css/element.css">
+<link rel="stylesheet" type="text/css" href="res/shadowsocks.css">
 <script type="text/javascript" src="/state.js"></script>
 <script type="text/javascript" src="/popup.js"></script>
 <script type="text/javascript" src="/help.js"></script>
@@ -25,59 +26,61 @@
 function init() {
 	show_menu();
 	buildswitch();
-    conf2obj();
+	conf2obj();
 }
+
+function menu_hook() {
+	tabtitle[tabtitle.length - 1] = new Array("", "ssserver");
+	tablink[tablink.length - 1] = new Array("", "Module_ssserver.asp");
+}
+
 function done_validating() {
-refreshpage(5);
+	refreshpage(5);
 }
-function buildswitch(){
+
+function buildswitch() {
 	$("#switch").click(
-	function(){
-		if(document.getElementById('switch').checked){
+	function() {
+		if (document.getElementById('switch').checked) {
 			document.form.ssserver_enable.value = 1;
-			document.getElementById('ssserver_detail').style.display = "";
-		}else{
+		} else {
 			document.form.ssserver_enable.value = 0;
-			document.getElementById('ssserver_detail').style.display = "none";
 		}
 	});
 }
+
 function onSubmitCtrl(o, s) {
 	document.form.action_mode.value = s;
 	showLoading(5);
 	document.form.submit();
 }
 
-function conf2obj(){
+function conf2obj() {
 	$.ajax({
-	type: "get",
-	url: "dbconf?p=ssserver",
-	dataType: "script",
-	success: function(xhr) {
-    	var p = "ssserver";
-    	    var params = ["method", "password", "port", "udp", "time", "use_ss", "obfs"];
-    	    for (var i = 0; i < params.length; i++) {
-    	        $("#ssserver_"+params[i]).val(db_ssserver[p + "_" + params[i]]);
-    	}
-		var rrt = document.getElementById("switch");
-    	if (db_ssserver["ssserver_enable"] != "1") {
-    	    rrt.checked = false;
-    	    document.getElementById('ssserver_detail').style.display = "none";
-    	} else {
-    	    rrt.checked = true;
-    	    document.getElementById('ssserver_detail').style.display = "";
-    	}
-	}
+		type: "get",
+		url: "dbconf?p=ssserver",
+		dataType: "script",
+		success: function(xhr) {
+			var p = "ssserver";
+			var params = ["method", "password", "port", "udp", "time", "use_ss", "obfs"];
+			for (var i = 0; i < params.length; i++) {
+				if (db_ssserver[p + "_" + params[i]]) {
+					$("#ssserver_" + params[i]).val(db_ssserver[p + "_" + params[i]]);
+				}
+			}
+			var rrt = document.getElementById("switch");
+			if (db_ssserver["ssserver_enable"] != "1") {
+				rrt.checked = false;
+			} else {
+				rrt.checked = true;
+			}
+		}
 	});
 }
-function pass_checked(obj){
-	switchType(obj, document.form.show_pass.checked, true);
-}
 
-function reload_Soft_Center(){
-location.href = "/Main_Soft_center.asp";
+function reload_Soft_Center() {
+	location.href = "/Main_Soft_center.asp";
 }
-
 </script>
 </head>
 <body onload="init();">
@@ -117,7 +120,6 @@ location.href = "/Main_Soft_center.asp";
 										<div style="float:right; width:15px; height:25px;margin-top:10px"><img id="return_btn" onclick="reload_Soft_Center();" align="right" style="cursor:pointer;position:absolute;margin-left:-30px;margin-top:-25px;" title="返回软件中心" src="/images/backprev.png" onMouseOver="this.src='/images/backprevclick.png'" onMouseOut="this.src='/images/backprev.png'"></div>
 										<div style="margin-left:5px;margin-top:10px;margin-bottom:10px"><img src="/images/New_ui/export/line_export.png"></div>
 										<div class="formfontdesc" id="cmdDesc">开启ss-server后，就可以类似VPN一样，将你的网络共享到公网，让你和你的小伙伴远程连接。</div>										
-										<div class="formfontdesc" id="cmdDesc"></div>
 										<table style="margin:10px 0px 0px 0px;" width="100%" border="1" align="center" cellpadding="4" cellspacing="0" bordercolor="#6b8fa3" class="FormTable">
 											<thead>
 											<tr>
@@ -138,7 +140,7 @@ location.href = "/Main_Soft_center.asp";
 															</div>
 														</label>
 													</div>
-													<div id="qos_enable_hint" style="color:#FC0;vertical-align:middle;display:block">binary version: 3.0.8</div>
+													<span style="float: left;">二进制版本: 3.1.0</span>
 												</td>
 											</tr>
                                     	</table>                                    	
@@ -179,17 +181,14 @@ location.href = "/Main_Soft_center.asp";
 											<tr>
 												<th>密码</th>
 												<td>
-													<input type="password" name="ssserver_password" id="ssserver_password" class="ssconfig input_ss_table" maxlength="100" value=""/>
-													<div style="margin-left:170px;margin-top:-20px;margin-bottom:0px"><input type="checkbox" name="show_pass" onclick="pass_checked(document.form.ssserver_password);">
-															显示密码
-													</div>
+													<input type="password" name="ssserver_password" id="ssserver_password" class="input_ss_table" maxlength="100" value="" readonly onBlur="switchType(this, false);" onFocus="switchType(this, true);this.removeAttribute('readonly');"/>
 												</td>
 											</tr>
 											<tr>
 												<th>端口</th>
 												<td>
 													<div>
-														<input type="txt" name="ssserver_port" id="ssserver_port" class="ssconfig input_ss_table" maxlength="100" value=""/>
+														<input type="txt" name="ssserver_port" id="ssserver_port" class="input_ss_table" maxlength="100" value=""/>
 													</div>
 												</td>
 											</tr>
@@ -197,7 +196,7 @@ location.href = "/Main_Soft_center.asp";
 												<th>超时时间（秒）</th>
 												<td>
 													<div>
-														<input type="txt" name="ssserver_time" id="ssserver_time" class="ssconfig input_ss_table" maxlength="100" value="600"/>
+														<input type="txt" name="ssserver_time" id="ssserver_time" class="input_ss_table" maxlength="100" value="600"/>
 													</div>
 												</td>
 											</tr>
@@ -210,7 +209,6 @@ location.href = "/Main_Soft_center.asp";
 													</select>
 												</td>
 											</tr>
-											
 											<tr>
 												<th>混淆（obfs）</th>
 												<td>
@@ -221,7 +219,6 @@ location.href = "/Main_Soft_center.asp";
 													</select>
 												</td>
 											</tr>
-                                            
 											<tr>
 												<th>使用ss网络</th>
 												<td>
@@ -241,11 +238,6 @@ location.href = "/Main_Soft_center.asp";
 											<button id="cmdBtn" class="button_gen" onclick="onSubmitCtrl(this, ' Refresh ')">提交</button>
 										</div>
 										<div style="margin-left:5px;margin-top:10px;margin-bottom:10px"><img src="/images/New_ui/export/line_export.png"></div>
-										<div class="KoolshareBottom">
-											<br/>论坛技术支持： <a href="http://www.koolshare.cn" target="_blank"> <i><u>www.koolshare.cn</u></i> </a> <br/>
-											后台技术支持： <i>Xiaobao</i> <br/>
-											Shell, Web by： <i>fw867</i><br/>
-										</div>
 									</td>
 								</tr>
 							</table>
